@@ -1,5 +1,6 @@
 import cv2, time
 
+wait_for_startup = True
 first_frame = None
 video = cv2.VideoCapture(0)
 
@@ -8,6 +9,13 @@ while True:
 
     print(check)
     print(frame)
+
+    '''  This block is for mac users with built-in isight camera
+        which has an initial delay on startup '''
+    if wait_for_startup == True:
+        wait_for_startup = False
+        time.sleep(3)
+        continue
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray = cv2.GaussianBlur(gray, (21,21), 0)
